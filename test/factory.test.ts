@@ -1,6 +1,6 @@
 import { expect, test, describe } from "bun:test";
 import { get, register } from '../src/factory';
-import { create } from '../src';
+import { vdsm } from '../src';
 
 enum ArticleState1 {
     Draft,
@@ -48,7 +48,7 @@ describe('get', () => {
     });
 
     test("should ok", () => {
-        const builder = create<ReqContext>();
+        const builder = vdsm.create<ReqContext>();
         const stateMachineId = "this is exists";
         builder.internalTransition().within(ArticleState1.Draft)
             .on(ArtileEvent1.Edit).when(ctx => ctx.id === '1')

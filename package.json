@@ -11,6 +11,12 @@
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vardef/vdsm"
+  },
+  "bugs": "https://github.com/vardef/vdsmissues",
+  "homepage": "https://github.com/vardef/vdsm",
   "keywords": [
     "state machine",
     "vdsm",
@@ -33,10 +39,9 @@
     }
   },
   "scripts": {
-    "_test": "npm run test:functionality && npm run test:types",
-    "_test:functionality": "bun test && npm run test:node",
-    "_test:types": "tsc --project tsconfig.test.json",
-    "_test:node": "npm install --prefix ./test/node/cjs/ && npm install --prefix ./test/node/esm/ && node ./test/node/cjs/index.js && node ./test/node/esm/index.js",
+    "test": "npm run test:functionality ",
+    "test:functionality": "bun test && npm run test:node",
+    "test:node": "npm install --prefix ./test/node/cjs/ && npm install --prefix ./test/node/esm/ && node ./test/node/cjs/index.js && node ./test/node/esm/index.js",
     "build": "npm run build:esm && npm run build:bun && npm run build:cjs",
     "build:bun": "bun build.ts",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
