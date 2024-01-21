@@ -14,7 +14,7 @@ env:
 
 jobs:
   changelog:
-    name: 'Generate Changelog'
+    name: "Generate Changelog"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,14 +33,14 @@ jobs:
         continue-on-error: true
 
   publish-npm:
-    name: 'Publish: npm Registry'
+    name: "Publish: npm Registry"
     needs: [changelog]
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: 'Setup Bun'
+      - name: "Setup Bun"
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
@@ -55,8 +55,8 @@ jobs:
       - name: Test
         run: bun run test
 
-      - name: 'Publish'
+      - name: "Publish"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          BUN_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --access=public
