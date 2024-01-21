@@ -1,0 +1,55 @@
+{
+  "name": "vdsm",
+  "version": "0.0.1",
+  "author": {
+    "name": "vardef",
+    "url": "https://github.com/vardef",
+    "email": "vardef@mockio.cn"
+  },
+  "description": "tiny state machine, pure typescript ,no dependencies",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "state machine",
+    "vdsm",
+    "statemachine"
+  ],
+  "exports": {
+    ".": {
+      "bun": "./dist/bun/index.js",
+      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./types": {
+      "bun": "./dist/types.js",
+      "node": "./dist/cjs/types.js",
+      "require": "./dist/cjs/types.js",
+      "import": "./dist/types.js",
+      "default": "./dist/types.js"
+    }
+  },
+  "scripts": {
+    "_test": "npm run test:functionality && npm run test:types",
+    "_test:functionality": "bun test && npm run test:node",
+    "_test:types": "tsc --project tsconfig.test.json",
+    "_test:node": "npm install --prefix ./test/node/cjs/ && npm install --prefix ./test/node/esm/ && node ./test/node/cjs/index.js && node ./test/node/esm/index.js",
+    "build": "npm run build:esm && npm run build:bun && npm run build:cjs",
+    "build:bun": "bun build.ts",
+    "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "release:local": "npm run build && npm run test && npm publish"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@swc/cli": "^0.1.62",
+    "@swc/core": "^1.3.86",
+    "typescript": "5.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "5.3.3"
+  }
+}
