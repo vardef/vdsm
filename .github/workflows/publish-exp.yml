@@ -44,8 +44,6 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-          registry-url: "https://registry.npmjs.org"
-
       - name: Install packages
         run: bun install
 
@@ -57,6 +55,6 @@ jobs:
 
       - name: "Publish"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          BUN_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --access=public --tag experimental
