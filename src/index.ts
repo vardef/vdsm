@@ -6,7 +6,7 @@ function create<Context>(): StateMachineBuilder<Context> {
     return new StateMachineBuilderImpl<Context>();
 }
 
-export {
+export const vdsm = {
     create,
     get
 }
