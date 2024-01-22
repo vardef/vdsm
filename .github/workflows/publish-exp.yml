@@ -56,6 +56,6 @@ jobs:
 
       - name: "Publish"
         env:
-          BUN_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          node_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --access=public --tag experimental

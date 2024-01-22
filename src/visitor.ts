@@ -14,7 +14,7 @@ export interface Visitable<Context> {
     accept(visitor: Visitor<Context>): String;
 }
 
-export class ConoleVisitor<Context> implements Visitor<Context> {
+export class ConsoleVisitor<Context> implements Visitor<Context> {
     visitOnEntry(stateMachine: StateMachine<Context>): string {
         const entry = `-----StateMachine:${stateMachine.getStateMachineId()}-------`;
         console.log(entry);
@@ -29,7 +29,7 @@ export class ConoleVisitor<Context> implements Visitor<Context> {
         const sb: string[] = [`State:${state.getId()}`];
         console.log(sb);
         for (const transition of state.getAllTransitions()) {
-            const transitionStr = `    Transition:${transition}`;
+            const transitionStr = `    Transition:${transition.toString()}`;
             sb.push(transitionStr);
             console.log(transitionStr);
         }
