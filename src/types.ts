@@ -13,9 +13,9 @@ export type Condition<Context> = (context: Context) => boolean;
 export type Action<Context> = (from: StateEnum, to: StateEnum, event: EventEnum, context: Context) => void;
 
 export enum TransitionType {
-    INTERNAL,
-    LOCAL,
-    EXTERNAL,
+    INTERNAL = "INTERNAL",
+    LOCAL = "LOCAL",
+    EXTERNAL = "EXTERNAL",
 }
 export interface From<Context> {
     to(state: StateEnum): To<Context>;
@@ -96,4 +96,5 @@ export interface Transition<Context> {
 
     equals(other: Transition<Context> | null): boolean;
 
+    toString(): string;
 }

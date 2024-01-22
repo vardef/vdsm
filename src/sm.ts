@@ -53,7 +53,7 @@ export class TransitionImpl<Context> implements Transition<Context>{
     transit(context: Context, skipCondition: boolean): State<Context> {
         this.verify();
         if (skipCondition || this.condition == undefined || this.condition(context)) {
-            this.action != undefined && this.action(this.source.getId(), this.target.getId(), this.event, context);
+            this.action && this.action(this.source.getId(), this.target.getId(), this.event, context);
             return this.target;
         }
 
@@ -86,6 +86,9 @@ export class TransitionImpl<Context> implements Transition<Context>{
         }
 
         throw new Error(`StateMachine: Internal transition source state ${this.source} and target status ${this.target} must be same.`);
+    }
+    toString(): string {
+        return `${this.source.getId()}-[${this.event},${this.type}]-> ${this.target.getId()}`;
     }
 
 }

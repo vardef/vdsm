@@ -1,5 +1,5 @@
 import { StateMachineId, StateEnum, From, To, State, TransitionType, Condition, EventEnum, Action, On, StateMachine, Transition, When } from "./types";
-import { ConoleVisitor, PlantUmlVisitor, Visitor } from "./visitor";
+import { ConsoleVisitor, PlantUmlVisitor, Visitor } from "./visitor";
 import { StateImpl } from "./sm";
 import { register } from "./factory";
 
@@ -98,7 +98,7 @@ class TransitionBuilderImpl<Context> extends AbsTransitionBuilder<Context> imple
     }
 
     within(state: StateEnum): To<Context> {
-        this.source = this.mustGet(state);
+        this.source = this.target = this.mustGet(state);
         return this;
     }
     when(isSatisfied: Condition<Context>): When<Context> {
@@ -152,7 +152,7 @@ class StateMachineImpl<Context> implements StateMachine<Context> {
     }
 
     displayStateMachine(): void {
-        const conoleVisitor = new ConoleVisitor<Context>();
+        const conoleVisitor = new ConsoleVisitor<Context>();
         this.accept(conoleVisitor)
     }
     generatePlantUml(): string {

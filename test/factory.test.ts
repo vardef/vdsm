@@ -1,40 +1,7 @@
 import { expect, test, describe } from "bun:test";
 import { get, register } from '../src/factory';
 import { vdsm } from '../src';
-
-enum ArticleState1 {
-    Draft,
-    Published,
-    Archived,
-    PendingApproval
-}
-
-enum ArtileEvent1 {
-    Create,
-    Edit,
-    Publish,
-    Archive,
-    SubmitForApproval,
-}
-
-enum ArtileEvent2 {
-    Create = 'create',
-    Edit = 'edit',
-    Publish = 'publish',
-    Archive = 'archive',
-    SubmitForApproval = 'submit_for_approval',
-}
-
-enum ArticleState2 {
-    Draft = 'draft',
-    Published = 'published',
-    Archived = 'archived',
-    PendingApproval = 'pending_approval',
-}
-
-interface ReqContext {
-    id: string
-}
+import { ArticleState1, ArtileEvent1, ReqContext, } from './types';
 
 describe('get', () => {
     test("Error should be triggered on get a not exists stateMachineId..", () => {
