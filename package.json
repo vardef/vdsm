@@ -13,7 +13,7 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/vardef/vdsm"
+    "url": "git+https://github.com/vardef/vdsm.git"
   },
   "bugs": "https://github.com/vardef/vdsmissues",
   "homepage": "https://github.com/vardef/vdsm",
