@@ -1,6 +1,6 @@
 import { expect, test, describe, beforeAll } from "bun:test";
 import { vdsm } from '../src';
-import { ArticleState2, ArtileEvent2 } from './types';
+import { ArticleState, ArticleEvent } from './types';
 
 const visitorStateMachineKey = 'visitorStateMachineKey';
 
@@ -10,13 +10,13 @@ beforeAll(() => {
     // draft --> draft : edit
     // draft --> pending_approval : submit_for_approval
     builder.internalTransition()
-        .within(ArticleState2.Draft)
-        .on(ArtileEvent2.Edit);
+        .within(ArticleState.Draft)
+        .on(ArticleEvent.Edit);
     // draft ->  PendingApproval on SubmitForApproval
     builder.externalTransition()
-        .from(ArticleState2.Draft)
-        .to(ArticleState2.PendingApproval)
-        .on(ArtileEvent2.SubmitForApproval);
+        .from(ArticleState.Draft)
+        .to(ArticleState.PendingApproval)
+        .on(ArticleEvent.SubmitForApproval);
 
     builder.build(visitorStateMachineKey);
 });

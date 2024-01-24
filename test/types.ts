@@ -1,19 +1,4 @@
-export enum ArticleState1 {
-    Draft,
-    Published,
-    Archived,
-    PendingApproval
-}
-
-export enum ArtileEvent1 {
-    Create,
-    Edit,
-    Publish,
-    Archive,
-    SubmitForApproval,
-}
-
-export enum ArtileEvent2 {
+export enum ArticleEvent {
     Create = 'create',
     Edit = 'edit',
     Publish = 'publish',
@@ -21,7 +6,7 @@ export enum ArtileEvent2 {
     SubmitForApproval = 'submit_for_approval',
 }
 
-export enum ArticleState2 {
+export enum ArticleState {
     Draft = 'draft',
     Published = 'published',
     Archived = 'archived',
