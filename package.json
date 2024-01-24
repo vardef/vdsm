@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/vardef/vdsm.git"
   },
-  "bugs": "https://github.com/vardef/vdsmissues",
+  "bugs": "https://github.com/vardef/vdsm/issues",
   "homepage": "https://github.com/vardef/vdsm",
   "keywords": [
     "state machine",
