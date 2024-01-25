@@ -126,14 +126,16 @@ class ParseTransitionBuilderImpl<Context> extends AbsTransitionBuilder<Context> 
         this.parse(expression);
     }
     private parse(expression: string): void {
+        //FIXME simple implementation, to be optimized.
         const regex = /^\s*([\w\s]+)\s*-->\s*([\w\s]+)\s*:\s*(\w+)\s*$/;
         if (!expression) {
             throw new Error('expression must exists.');
         }
         const lines = expression.split('\n');
         let idx = 0;
-        for (const line of lines) {
-            if (line.trim() === '') {
+        for (let line of lines) {
+            line = line.replaceAll('@startuml', '').replaceAll('@enduml', '');
+            if (line.trim() === '' || line.indexOf('[*]') >= 0) {
                 continue;
             }
             idx++;
@@ -207,7 +209,7 @@ class StateMachineImpl<Context> implements StateMachine<Context> {
 
     displayStateMachine(): void {
         const conoleVisitor = new ConsoleVisitor<Context>();
-        this.accept(conoleVisitor)
+        this.accept(conoleVisitor);
     }
     generatePlantUml(): string {
         const plantUmlVisitor = new PlantUmlVisitor<Context>();
