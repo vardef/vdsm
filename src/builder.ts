@@ -127,7 +127,7 @@ class ParseTransitionBuilderImpl<Context> extends AbsTransitionBuilder<Context> 
     }
     private parse(expression: string): void {
         //FIXME simple implementation, to be optimized.
-        const regex = /^\s*([\w\s]+)\s*-->\s*([\w\s]+)\s*:\s*(\w+)\s*$/;
+        const regex = /^\s*(\w+)\s*-->\s*(\w+)\s*:\s*(\w+)\s*$/;
         if (!expression) {
             throw new Error('expression must exists.');
         }

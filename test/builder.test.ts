@@ -25,7 +25,7 @@ describe('parseTransition', () => {
         expect(err).not.toBeNull();
     });
 
-    test("should ok , express one line", () => {
+    test("should ok , express multi lines", () => {
         const plantuml_express_state_machine_test = 'plantuml_express_state_machine_test';
         const builder = vdsm.create();
         builder.parseTransition(`
@@ -40,15 +40,24 @@ describe('parseTransition', () => {
         @enduml
         `);
         builder.build(plantuml_express_state_machine_test);
-        console.log('--->>\n' + vdsm.get(plantuml_express_state_machine_test).generatePlantUml());
+        const plantUml = vdsm.get(plantuml_express_state_machine_test).generatePlantUml();
+        expect(plantUml).not.toBeEmpty();
+        expect(plantUml).toContain('@startuml');
+        expect(plantUml).toContain('pending_approval --> rejected : reject');
 
     });
 
-    test("should ok , express multi lines", () => {
+    test("should ok , express one line", () => {
+        const plantuml_express_one_line_test = 'plantuml_express_one_line_test';
         const builder = vdsm.create();
         builder.parseTransition(`
-        draft --> archived:archive
+        draft --> archived : archive
         draft --> pending_approval : submit_for_approval
         `);
+        builder.build(plantuml_express_one_line_test);
+        const plantUml = vdsm.get(plantuml_express_one_line_test).generatePlantUml();
+        expect(plantUml).not.toBeEmpty();
+        expect(plantUml).toContain('draft --> archived : archive');
+
     });
 });
