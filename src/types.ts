@@ -2,11 +2,8 @@ import { Visitable } from "./visitor";
 
 export type StateMachineId = string;
 
-type EnumLike = string | number;
-
-export type StateEnum = EnumLike;
-
-export type EventEnum = EnumLike;
+export type StateEnum = string;
+export type EventEnum = string;
 
 export type Condition<Context> = (context: Context) => boolean;
 
@@ -16,6 +13,7 @@ export enum TransitionType {
     INTERNAL = "INTERNAL",
     LOCAL = "LOCAL",
     EXTERNAL = "EXTERNAL",
+    MIX = "MIX",
 }
 export interface From<Context> {
     to(state: StateEnum): To<Context>;
@@ -37,9 +35,6 @@ export interface When<Context> {
 export interface To<Context> {
     on(event: EventEnum): On<Context>;
 }
-
-
-
 export interface StateMachine<Context> extends Visitable<Context> {
     verify(state: StateEnum, event: EventEnum): boolean;
 

@@ -41,18 +41,21 @@ export class ConsoleVisitor<Context> implements Visitor<Context> {
 }
 
 export class PlantUmlVisitor<Context> implements Visitor<Context> {
+
     visitOnEntry(visitable: StateMachine<Context>): string {
         return START_UML;
     }
     visitOnExit(visitable: StateMachine<Context>): string {
         return END_UML;
     }
+
     visitStateOnEntry(state: State<Context>): string {
         let sb = '';
         for (const transition of state.getAllTransitions()) {
             sb += `${transition.getSource().getId()} --> ${transition.getTarget().getId()} : ${transition.getEvent()} ${LF}`;
         }
         return sb;
+
     }
     visitStateOnExit(visitable: State<Context>): string {
         return "";

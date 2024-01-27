@@ -1,7 +1,7 @@
 import { expect, test, describe } from "bun:test";
 import { get, register } from '../src/factory';
 import { vdsm } from '../src';
-import { ArticleState1, ArtileEvent1, ReqContext, } from './types';
+import { ArticleState, ArticleEvent, ReqContext, } from './types';
 
 describe('get', () => {
     test("Error should be triggered on get a not exists stateMachineId..", () => {
@@ -13,12 +13,12 @@ describe('get', () => {
         }
         expect(err).not.toBeNull();
     });
-
+    // one -> abcde on xxx 
     test("should ok", () => {
         const builder = vdsm.create<ReqContext>();
         const stateMachineId = "this is exists";
-        builder.internalTransition().within(ArticleState1.Draft)
-            .on(ArtileEvent1.Edit).when(ctx => ctx.id === '1')
+        builder.internalTransition().within(ArticleState.Draft)
+            .on(ArticleEvent.Edit).when(ctx => ctx.id === '1')
             .perform((from, to, event, context) => {
                 console.log(`${from} -> ${to} on ${event} ,context = ${context}`);
             });
