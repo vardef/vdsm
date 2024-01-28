@@ -5,7 +5,7 @@ export type StateMachineId = string;
 export type StateEnum = string;
 export type EventEnum = string;
 
-export type Condition<Context> = (context: Context) => boolean;
+export type Condition<Context> = (context?: Context) => boolean;
 
 export type Action<Context> = (from: StateEnum, to: StateEnum, event: EventEnum, context: Context) => void;
 
@@ -38,7 +38,7 @@ export interface To<Context> {
 export interface StateMachine<Context> extends Visitable<Context> {
     verify(state: StateEnum, event: EventEnum): boolean;
 
-    fireEvent(state: StateEnum, event: EventEnum, context: Context): StateEnum;
+    fireEvent(state: StateEnum, event: EventEnum, context?: Context): StateEnum;
 
     getStateMachineId(): StateMachineId;
 
