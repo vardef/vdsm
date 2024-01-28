@@ -20,15 +20,15 @@ a simple, lightweight, and highly performant state machine DSL implementation, s
 ```bash
 import {vdsm} from 'vdsm';
 
-npm save vdsm
+npm install vdsm
 
-or
+#or
 
 bun add vdsm
 
-or
+#or
 
-pnpm save vdsm
+pnpm install vdsm
 
 ```
 
