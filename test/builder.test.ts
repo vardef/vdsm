@@ -42,7 +42,7 @@ describe('parseTransition', () => {
     });
 
     test("parse full plantuml", () => {
-        const plantuml_express_state_machine_test = 'plantuml_express_state_machine_test';
+        const parse_full_plantuml_test = 'parse_full_plantuml_test';
         const builder = vdsm.create();
         builder.parseTransitions(`
         @startuml
@@ -55,25 +55,32 @@ describe('parseTransition', () => {
         published --> [*]
         @enduml
         `);
-        builder.build(plantuml_express_state_machine_test);
-        const plantUml = vdsm.get(plantuml_express_state_machine_test).generatePlantUml();
-        expect(plantUml).not.toBeEmpty();
-        expect(plantUml).toContain('@startuml');
-        expect(plantUml).toContain('pending_approval --> rejected : reject');
+        builder.build(parse_full_plantuml_test);
+        const stateMachine = vdsm.get(parse_full_plantuml_test);
+
+        const after = stateMachine.fireEvent('draft', 'edit');
+
+        expect(stateMachine).not.toBeEmpty();
+        expect(after).toEqual('draft');
+
 
     });
 
     test("parse multi lines", () => {
-        const plantuml_express_one_line_test = 'plantuml_express_one_line_test';
+        const parse_multi_lines_test = 'parse_multi_lines_test';
         const builder = vdsm.create();
         builder.parseTransitions(`
         draft --> archived : archive
         draft --> pending_approval : submit_for_approval
         `);
-        builder.build(plantuml_express_one_line_test);
-        const plantUml = vdsm.get(plantuml_express_one_line_test).generatePlantUml();
-        expect(plantUml).not.toBeEmpty();
-        expect(plantUml).toContain('draft --> archived : archive');
+        builder.build(parse_multi_lines_test);
+        const stateMachine = vdsm.get(parse_multi_lines_test);
+
+        const after = stateMachine.fireEvent('draft', 'archive');
+
+        expect(stateMachine).not.toBeEmpty();
+        expect(after).toEqual('archived');
+
 
     });
 });

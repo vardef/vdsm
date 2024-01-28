@@ -2,32 +2,12 @@ import { expect, test, describe } from "bun:test";
 
 import { vdsm } from '../src';
 
-describe('externalTransitions', () => {
-    test("should ok,externalTransitions", () => {
-        const builder = vdsm.create();
-        //builder.externalTransitions().fromAmong()
-    });
-});
-describe('internalTransition', () => {
-    test("should ok", () => {
-        const builder = vdsm.create();
-    });
-});
 
 describe('parseTransition', () => {
-    test("should error , invalid express", () => {
-        const builder = vdsm.create();
-        let err = null;
-        try {
-            builder.parseTransitions('')
-        } catch (e) {
-            err = e;
-        }
-        expect(err).not.toBeNull();
-    });
 
-    test("should ok , express multi lines", () => {
-        const plantuml_express_state_machine_test = 'plantuml_express_state_machine_test';
+
+    test("state machine", () => {
+        const stamachineTest = 'stamachineTest';
         const builder = vdsm.create();
         builder.parseTransitions(`
         @startuml
@@ -40,25 +20,16 @@ describe('parseTransition', () => {
         published --> [*]
         @enduml
         `);
-        builder.build(plantuml_express_state_machine_test);
-        const plantUml = vdsm.get(plantuml_express_state_machine_test).generatePlantUml();
-        expect(plantUml).not.toBeEmpty();
-        expect(plantUml).toContain('@startuml');
-        expect(plantUml).toContain('pending_approval --> rejected : reject');
+
+        builder.build(stamachineTest);
+        const stateMachine = vdsm.get(stamachineTest);
+
+        expect(stateMachine.getStateMachineId()).toEqual(stamachineTest);
+        expect(stateMachine.verify('draft', 'edit')).toBeTrue();
+        expect(stateMachine.verify('draft', 'not_exists')).toBeFalse();
+
 
     });
 
-    test("should ok , express one line", () => {
-        const plantuml_express_one_line_test = 'plantuml_express_one_line_test';
-        const builder = vdsm.create();
-        builder.parseTransitions(`
-        draft --> archived : archive
-        draft --> pending_approval : submit_for_approval
-        `);
-        builder.build(plantuml_express_one_line_test);
-        const plantUml = vdsm.get(plantuml_express_one_line_test).generatePlantUml();
-        expect(plantUml).not.toBeEmpty();
-        expect(plantUml).toContain('draft --> archived : archive');
 
-    });
 });
