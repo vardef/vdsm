@@ -18,7 +18,7 @@ export interface StateMachineBuilder<Context> {
     externalTransition(): InternalTransitionBuilder<Context>;
     externalTransitions(): ExternalTransitionsBuilder<Context>;
     internalTransition(): ExternalTransitionBuilder<Context>;
-    parseTransition(expression: string): On<Context>;
+    parseTransitions(expression: string): On<Context>;
     build(stateMachineId: StateMachineId): StateMachine<Context>;
 }
 
@@ -126,7 +126,7 @@ class ParseTransitionBuilderImpl<Context> extends AbsTransitionBuilder<Context> 
         this.parse(expression);
     }
     private parse(expression: string): void {
-        //FIXME simple implementation, to be optimized.
+        // simple implementation, to be optimized.
         const regex = /^\s*(\w+)\s*-->\s*(\w+)\s*:\s*(\w+)\s*$/;
         if (!expression) {
             throw new Error('expression must exists.');
@@ -189,7 +189,7 @@ class StateMachineImpl<Context> implements StateMachine<Context> {
         const transitions = sourceState.getEventTransitions(event);
         return transitions && transitions.length > 0;
     }
-    fireEvent(source: StateEnum, event: EventEnum, context: Context): StateEnum {
+    fireEvent(source: StateEnum, event: EventEnum, context: Context = undefined as Context): StateEnum {
         this.isReady();
         // route
         const transition = this.routeTransition(source, event, context);
@@ -198,6 +198,7 @@ class StateMachineImpl<Context> implements StateMachine<Context> {
         }
         return transition.transit(context, false).getId();
     }
+
     getStateMachineId(): StateMachineId {
         return this.stateMachineId;
     }
@@ -228,7 +229,7 @@ class StateMachineImpl<Context> implements StateMachine<Context> {
         let transit: Transition<Context> | null = null;
         for (const transition of transitions) {
             const condition = transition.getCondition();
-            if (condition === null) {
+            if (!condition) {
                 transit = transition;
             } else if (condition(context)) {
                 transit = transition;
@@ -281,7 +282,7 @@ export class StateMachineBuilderImpl<Context> implements StateMachineBuilder<Con
     internalTransition(): ExternalTransitionBuilder<Context> {
         return new TransitionBuilderImpl(this.stateMap, TransitionType.INTERNAL);
     }
-    parseTransition(expression: string): On<Context> {
+    parseTransitions(expression: string): On<Context> {
         return new ParseTransitionBuilderImpl(this.stateMap, TransitionType.MIX, expression);
     }
     build(stateMahineId: StateMachineId): StateMachine<Context> {
