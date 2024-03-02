@@ -149,6 +149,6 @@ If you'd like to contribute, please follow these guidelines.
 
 This project is licensed under the [MIT] - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## Credited
 
 - Inspired by https://github.com/alibaba/COLA/tree/master/cola-components/cola-component-statemachine
