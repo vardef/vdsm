@@ -2,8 +2,8 @@ import { Visitable } from "./visitor";
 
 export type StateMachineId = string;
 
-export type StateEnum = string;
-export type EventEnum = string;
+export type StateEnum = Readonly<string>;
+export type EventEnum = Readonly<string>;
 
 export type Condition<Context> = (context?: Context) => boolean;
 

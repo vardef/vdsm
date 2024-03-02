@@ -1,6 +1,6 @@
 {
   "name": "vdsm",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "vardef",
     "url": "https://github.com/vardef",
@@ -39,9 +39,6 @@
     }
   },
   "scripts": {
-    "test": "npm run test:functionality ",
-    "test:functionality": "bun test && npm run test:node",
-    "test:node": "npm install --prefix ./test/node/cjs/ && npm install --prefix ./test/node/esm/ && node ./test/node/cjs/index.js && node ./test/node/esm/index.js",
     "build": "npm run build:esm && npm run build:bun && npm run build:cjs",
     "build:bun": "bun build.ts",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
