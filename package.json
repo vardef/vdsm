@@ -49,9 +49,9 @@
     "@types/bun": "latest",
     "@swc/cli": "^0.3.0",
     "@swc/core": "^1.3.86",
-    "typescript": "5.3.3"
+    "typescript": "5.4.2"
   },
   "peerDependencies": {
-    "typescript": "5.3.3"
+    "typescript": "5.4.2"
   }
 }
